@@ -52,6 +52,23 @@ public class BankingService {
 
     }
 
+public void deposite(){
 
+        Scanner scanner=new Scanner(System.in);
+
+    System.out.println("=================================================");
+    System.out.println("                              DEPOSITE");
+    System.out.println("=================================================");
+
+    System.out.println("Enter Account Number : ");
+    int accountNumber=scanner.nextInt();
+
+    System.out.println("Enter Amount : ");
+    double amount=scanner.nextDouble();
+
+    accountDAO.deposite(accountNumber,amount);
+
+
+}
 
 }

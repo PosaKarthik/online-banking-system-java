@@ -40,4 +40,32 @@ public class AccountDAOImpl implements AccountDAO {
         }
         return 0;
     }
+
+    @Override
+    public void deposite(int accountNumber, double amount) {
+
+        String query="UPDATE Accounts SET accountBalance=accountBalance+? WHERE accountNumber=?";
+
+        try(
+                Connection connection=DBConnection.getDbConnection();
+                PreparedStatement preparedStatement= connection.prepareStatement(query);
+                ){
+
+            preparedStatement.setDouble(1,amount);
+            preparedStatement.setInt(2,accountNumber);
+
+            int rows=preparedStatement.executeUpdate();
+
+            if(rows>0){
+                System.out.println("Amount Deposite Successfull");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 }
