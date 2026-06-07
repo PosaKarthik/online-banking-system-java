@@ -1,5 +1,6 @@
 package com.bank.service;
 
+
 import com.bank.daoimpl.AccountDAOImpl;
 import com.bank.daoimpl.CustomerDAOImpl;
 import com.bank.model.Account;
@@ -15,6 +16,11 @@ public class BankingService {
     public void createAccount(){
 
         Scanner scanner=new Scanner(System.in);
+
+        System.out.println("=================================================");
+        System.out.println("                            CREATE ACCOUNT");
+        System.out.println("=================================================");
+        System.out.println();
 
         System.out.println("Enter Name : ");
         String name=scanner.nextLine();
@@ -41,8 +47,6 @@ public class BankingService {
 
         System.out.println("=================================================");
 
-        System.out.println("Account created successfully");
-        System.out.println();
         System.out.println("Customer ID : "+customerId);
         System.out.println("Account Number : "+accountNumber);
 
@@ -68,6 +72,26 @@ public void deposite(){
 
     accountDAO.deposite(accountNumber,amount);
 
+
+}
+
+
+public void checkBalance(){
+
+        Scanner scanner=new Scanner(System.in);
+
+    System.out.println("=================================================");
+    System.out.println("                              CHECK BALANCE");
+    System.out.println("=================================================");
+    System.out.println();
+
+        System.out.println("Enter Account Number : ");
+        int accountNumber=scanner.nextInt();
+
+        double accountBalance= accountDAO.getBalance(accountNumber);
+
+        System.out.println();
+        System.out.println("Current Balance : "+accountBalance);
 
 }
 

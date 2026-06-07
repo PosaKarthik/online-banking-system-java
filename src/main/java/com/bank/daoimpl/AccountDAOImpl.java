@@ -68,4 +68,28 @@ public class AccountDAOImpl implements AccountDAO {
 
 
     }
+
+    @Override
+    public double getBalance(int accountNumber) {
+
+        String query="SELECT accountBalance FROM Accounts WHERE accountNumber=?";
+
+        try(
+                Connection connection=DBConnection.getDbConnection();
+                PreparedStatement preparedStatement= connection.prepareStatement(query)
+                ){
+
+            preparedStatement.setInt(1,accountNumber);
+
+            ResultSet resultSet=preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                return resultSet.getDouble("accountBalance");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

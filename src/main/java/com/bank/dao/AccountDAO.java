@@ -7,4 +7,6 @@ public interface AccountDAO {
     int createAccount(Account account);
 
     void deposite(int accountNumber,double amount);
+
+    double getBalance(int accountNumber);
 }
