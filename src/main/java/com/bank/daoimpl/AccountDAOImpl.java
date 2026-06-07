@@ -92,4 +92,53 @@ public class AccountDAOImpl implements AccountDAO {
         }
         return 0;
     }
+
+    @Override
+    public void withdraw(int accountNumber, double amount) {
+
+        String query="UPDATE Accounts SET accountBalance=accountBalance-? WHERE accountNumber=?";
+
+        try(
+                Connection connection=DBConnection.getDbConnection();
+                PreparedStatement preparedStatement= connection.prepareStatement(query)
+                ){
+
+            preparedStatement.setDouble(1,amount);
+            preparedStatement.setInt(2,accountNumber);
+
+            int rows = preparedStatement.executeUpdate();
+
+            if(rows>0){
+                System.out.println("Withdraw Successfull");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+    @Override
+    public boolean accountExists(int accountNumber) {
+
+        String query="SELECT * FROM Accounts WHERE accountNumber=?";
+
+        try(
+                Connection connection=DBConnection.getDbConnection();
+                PreparedStatement preparedStatement= connection.prepareStatement(query);
+                ){
+
+                preparedStatement.setInt(1,accountNumber);
+
+                ResultSet resultSet=preparedStatement.executeQuery();
+
+                return resultSet.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

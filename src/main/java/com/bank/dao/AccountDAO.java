@@ -9,4 +9,8 @@ public interface AccountDAO {
     void deposite(int accountNumber,double amount);
 
     double getBalance(int accountNumber);
+
+    void withdraw(int accountNumber,double amount);
+
+    boolean accountExists(int accountNumber);
 }

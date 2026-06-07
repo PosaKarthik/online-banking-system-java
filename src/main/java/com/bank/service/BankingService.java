@@ -3,6 +3,8 @@ package com.bank.service;
 
 import com.bank.daoimpl.AccountDAOImpl;
 import com.bank.daoimpl.CustomerDAOImpl;
+import com.bank.exception.InsufficientBalanceException;
+import com.bank.exception.InvalidAccountException;
 import com.bank.model.Account;
 import com.bank.model.Customer;
 
@@ -94,5 +96,39 @@ public void checkBalance(){
         System.out.println("Current Balance : "+accountBalance);
 
 }
+
+
+public void withdraw() throws InvalidAccountException, InsufficientBalanceException {
+
+        Scanner scanner=new Scanner(System.in);
+
+    System.out.println("=================================================");
+    System.out.println("                              WITHDRAW");
+    System.out.println("=================================================");
+    System.out.println();
+
+        System.out.println("Enter Account Number : ");
+        int accountNumber= scanner.nextInt();
+
+        System.out.println("Enter Amount : ");
+        double amount= scanner.nextDouble();
+
+        if(!accountDAO.accountExists(accountNumber)){
+            throw new InvalidAccountException(
+                    "Account Number "+accountNumber+" Not Found"
+            );
+        }
+
+        double checkBalance=accountDAO.getBalance(accountNumber);
+
+        if(amount>checkBalance){
+          throw new InsufficientBalanceException("Insufficient Balance");
+        }
+
+        accountDAO.withdraw(accountNumber,amount);
+
+}
+
+
 
 }
