@@ -17,3 +17,4 @@ A console-based banking application developed using Java, JDBC, MySQL, and Maven
 - View Transaction History
 - Exception Handling
 - Layered Architecture
+- Menu Driven Console Application
