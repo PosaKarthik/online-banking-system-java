@@ -3,17 +3,21 @@ package com.bank.service;
 
 import com.bank.daoimpl.AccountDAOImpl;
 import com.bank.daoimpl.CustomerDAOImpl;
+import com.bank.daoimpl.TransactionDAOImpl;
 import com.bank.exception.InsufficientBalanceException;
 import com.bank.exception.InvalidAccountException;
 import com.bank.model.Account;
 import com.bank.model.Customer;
+import com.bank.model.Transaction;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BankingService {
 
     private CustomerDAOImpl customerDAO=new CustomerDAOImpl();
     private AccountDAOImpl accountDAO=new AccountDAOImpl();
+    private TransactionDAOImpl transactionDAO=new TransactionDAOImpl();
 
     public void createAccount(){
 
@@ -74,6 +78,10 @@ public void deposite(){
 
     accountDAO.deposite(accountNumber,amount);
 
+    Transaction transaction =new Transaction(accountNumber,"DEPOSITE",amount);
+
+    transactionDAO.addTransaction(transaction);
+
 
 }
 
@@ -126,6 +134,35 @@ public void withdraw() throws InvalidAccountException, InsufficientBalanceExcept
         }
 
         accountDAO.withdraw(accountNumber,amount);
+
+        Transaction transaction=new Transaction(accountNumber,"WITHDRAW",amount);
+
+        transactionDAO.addTransaction(transaction);
+
+
+}
+
+public void transactionHistory(){
+
+        Scanner scanner=new Scanner(System.in);
+    System.out.println("=================================================");
+    System.out.println("                           TRANSACTION HISTORY");
+    System.out.println("=================================================");
+    System.out.println();
+
+        System.out.println("Enter AccountNumber : ");
+        int accountNumber=scanner.nextInt();
+
+    List<Transaction> transactions=transactionDAO.getTransactions(accountNumber);
+
+    if(transactions.isEmpty()){
+        System.out.println("No Transactions Found");
+        return;
+    }
+
+    for(Transaction transaction:transactions){
+        System.out.println(transaction);
+    }
 
 }
 
