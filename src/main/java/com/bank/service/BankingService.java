@@ -86,7 +86,7 @@ public void deposite(){
 }
 
 
-public void checkBalance(){
+public void checkBalance() throws InvalidAccountException {
 
         Scanner scanner=new Scanner(System.in);
 
@@ -97,6 +97,12 @@ public void checkBalance(){
 
         System.out.println("Enter Account Number : ");
         int accountNumber=scanner.nextInt();
+
+    if(!accountDAO.accountExists(accountNumber)){
+        throw new InvalidAccountException(
+                "Account Number "+accountNumber+" Not Found"
+        );
+    }
 
         double accountBalance= accountDAO.getBalance(accountNumber);
 
