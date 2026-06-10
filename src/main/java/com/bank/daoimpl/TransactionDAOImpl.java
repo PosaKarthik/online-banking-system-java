@@ -15,7 +15,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     @Override
     public void addTransaction(Transaction transaction) {
 
-        String query="INSERT INTO Accounts(accountNumber,transactionType,transactionAmount) VALUES(?,?,?)";
+        String query="INSERT INTO Transactions(accountNumber,transactionType,transactionAmount) VALUES(?,?,?)";
 
 
         try(
@@ -42,7 +42,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         List<Transaction> transactions=new ArrayList<>();
 
-        String query="SELECT * FROM Accounts WHERE accountNumber=?";
+        String query="SELECT * FROM Transactions WHERE accountNumber=?";
 
         try(
                 Connection connection=DBConnection.getDbConnection();
